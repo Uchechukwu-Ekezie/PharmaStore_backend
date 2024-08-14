@@ -11,18 +11,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middleware
+const allowedOrigins = [process.env.FRONTEND_URL, 'https://pharmastore-frontend.vercel.app'];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
-); // Modify CORS as necessary
+);
+
+// Middleware
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 // Routes
 app.use("/api", userRoute);
