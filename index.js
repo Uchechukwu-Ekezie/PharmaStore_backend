@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const allowedOrigins = [process.env.FRONTEND_URL, 'https://pharmastore-frontend.vercel.app'];
+const allowedOrigins = [process.env.FRONTEND_URL, process.env.PRODUCTION_FRONTEND_URL];
 
 app.use(
   cors({
@@ -19,10 +19,13 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error("Not allowed by CORS"));
       }
     },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
+    optionsSuccessStatus: 204,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
@@ -34,6 +37,9 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api", userRoute);
+
+// Handle OPTIONS requests for preflight
+app.options("*", cors()); // Preflight request handling
 
 // Database Connection
 mongoose
