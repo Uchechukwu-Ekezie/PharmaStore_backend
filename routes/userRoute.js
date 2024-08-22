@@ -19,6 +19,7 @@ import { updateAddToCartProduct } from "../controller/user/updateToCartProduct.j
 import { deleteAddToCartProduct } from "../controller/user/deleteAddToCartProduct.js";
 import { filterProductController } from "../controller/product/filterProduct.js";
 import { searchProduct } from "../controller/product/searchProduct.js";
+import { initializePayment, verifyPayment } from "../controller/order/paystackController.js";
 
 
 const router = Router();
@@ -51,6 +52,11 @@ router.get("/countAddToCartProduct",authToken,countAddToCartProduct)
 router.get("/view-card-product",authToken,addToCartViewProduct)
 router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
+
+// paystack
+
+router.post('/initialize-payment', initializePayment);
+router.get('/verify-payment/:reference', verifyPayment);
 
 
 

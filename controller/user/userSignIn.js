@@ -33,6 +33,7 @@ export const userSignInController = async (req, res) => {
       const tokenOptions = {
         httpOnly: true,
         secure: true,
+        sameSite: "none",
       };
 
       // Send response with user data and token
