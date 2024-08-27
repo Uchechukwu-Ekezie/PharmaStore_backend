@@ -1,4 +1,5 @@
 import { Router } from "express";
+import express from "express"
 import { userSignInController } from "../controller/user/userSignIn.js";
 import { userSignUpController } from "../controller/user/userSignUp.js";
 import { userDetailsController } from "../controller/user/userDetail.js";
@@ -19,7 +20,11 @@ import { updateAddToCartProduct } from "../controller/user/updateToCartProduct.j
 import { deleteAddToCartProduct } from "../controller/user/deleteAddToCartProduct.js";
 import { filterProductController } from "../controller/product/filterProduct.js";
 import { searchProduct } from "../controller/product/searchProduct.js";
-import { initializePayment, verifyPayment } from "../controller/order/paystackController.js";
+import { paymentController } from "../controller/order/paymentController.js";
+import webhooks from "../controller/order/webhook.js";
+import { orderController } from "../controller/order/orderController.js";
+import { allOrderController } from "../controller/order/allOrderController.js";
+import bodyParser from "body-parser";
 
 
 const router = Router();
@@ -55,8 +60,10 @@ router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 
 // paystack
 
-router.post('/initialize-payment', initializePayment);
-router.get('/verify-payment/:reference', verifyPayment);
+router.post('/checkout',authToken,paymentController)
+router.post('/webhook',webhooks)
+router.get("/order-list",authToken,orderController)
+router.get("/all-order",authToken,allOrderController)
 
 
 
