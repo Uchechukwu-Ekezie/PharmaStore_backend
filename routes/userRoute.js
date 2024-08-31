@@ -24,7 +24,7 @@ import { paymentController } from "../controller/order/paymentController.js";
 import webhooks from "../controller/order/webhook.js";
 import { orderController } from "../controller/order/orderController.js";
 import { allOrderController } from "../controller/order/allOrderController.js";
-import bodyParser from "body-parser";
+import { getPopularProducts, markProductAsPopular, removePopularStatus } from "../controller/product/getPopularProduct.js";
 
 
 const router = Router();
@@ -49,7 +49,9 @@ router.post("/category-product",getCategoryWiseProduct)
 router.post("/product-details",getProductDetails)
 router.get("/search",searchProduct)
 router.post("/filter-product",filterProductController)
-
+router.get("/popular", getPopularProducts);
+router.patch("/popular/:productId", markProductAsPopular);
+router.patch("/unpopular/:productId", removePopularStatus);
 
 //user add to cart
 router.post("/addtocart",authToken,addToCartController)

@@ -7,7 +7,9 @@ const productSchema = mongoose.Schema({
     productImage : [],
     description : String,
     price : Number,
-    sellingPrice : Number
+    sellingPrice : Number,
+    isPopular: { type: Boolean, default: false },
+
 },{
     timestamps : true
 })
