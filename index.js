@@ -70,11 +70,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-  res.cookie('cookieName', 'cookieValue', {
+  res.cookie('authToken', 'yourAuthTokenValue', {
     sameSite: 'None',
     secure: true,
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
   });
   next();
 });
