@@ -69,6 +69,16 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.cookie('cookieName', 'cookieValue', {
+    sameSite: 'None',
+    secure: true,
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  });
+  next();
+});
+
 // Routes
 app.use("/api", userRoute);
 

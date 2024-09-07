@@ -28,8 +28,21 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      // enum: ["user", "admin"],
-      // default: "user",
+      default: "user", // You can specify a default role
+    },
+    phone: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: function (v) {
+          return v === "" || validator.isMobilePhone(v, "any", { strictMode: false });
+        },
+        message: "Please enter a valid phone number",
+      },
+    },
+    address: {
+      type: String,
+      trim: true,
     },
   },
   {
@@ -44,9 +57,6 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
-
-// Static method for logging in users
-
 
 const userModel = mongoose.model("User", userSchema);
 
