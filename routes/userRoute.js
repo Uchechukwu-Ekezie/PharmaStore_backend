@@ -25,6 +25,8 @@ import webhooks from "../controller/order/webhook.js";
 import { orderController } from "../controller/order/orderController.js";
 import { allOrderController } from "../controller/order/allOrderController.js";
 import { getPopularProducts, markProductAsPopular, removePopularStatus } from "../controller/product/getPopularProduct.js";
+import { updateProfile } from "../controller/user/updateProfile.js";
+import { vendorSignUpController } from "../controller/user/vendorSignUp.js";
 
 
 const router = Router();
@@ -33,6 +35,11 @@ router.post("/login", userSignInController);
 router.post("/signup", userSignUpController);
 router.get("/user-details", authToken, userDetailsController);
 router.get("/userLogout", userLogoutController);
+router.post("/vendorsignup", vendorSignUpController);
+
+
+// Update user profile route
+router.put("/profile", authToken, updateProfile);
 
 // admin panel
 

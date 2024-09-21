@@ -40,7 +40,7 @@ app.use(
 // Add security headers using Helmet
 app.use(helmet());
 
-// Set Content Security Policy (CSP)
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {

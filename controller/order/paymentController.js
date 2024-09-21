@@ -43,10 +43,10 @@ export const paymentController = async(request,response)=>{
 
                 }
             }),
-            success_url : `${process.env.FRONTEND_URL}/success`,
+            success_url : `${process.env.FRONTEND_URL}/store/success`,
             // success_url : `${process.env.PRODUCTION_FRONTEND_URL}/success`,
 
-            cancel_url : `${process.env.FRONTEND_URL}/cancel`,
+            cancel_url : `${process.env.FRONTEND_URL}/store/cancel`,
             // cancel_url : `${process.env.PRODUCTION_FRONTEND_URL}/cancel`
         }
 
